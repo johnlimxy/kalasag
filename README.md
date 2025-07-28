@@ -1,6 +1,13 @@
 # kalasag
 BPI Kalasag: A Digital Shield for Senior Financial Wellness
 
+# Create a .gitignore file
+.gitignore 
+# Add this as the content:
+.*
+node_modules
+
+
 # Setting up the Frontend
 # 1. Go to your React project folder
 cd frontend
@@ -10,6 +17,7 @@ npm install
 
 # 3. Start the React development server
 npm start
+
 
 # Setting up the Backend
 # 1. Go to your Flask project folder
