@@ -3,6 +3,7 @@
 # This is the single, official backend file for the project.
 
 import os
+from bson import Binary
 from dotenv import load_dotenv
 from pathlib import Path
 from fastapi import FastAPI, HTTPException
@@ -119,7 +120,7 @@ async def create_user(request: UserCreateRequest):
         raise HTTPException(status_code=400, detail="User with this phone number already exists.")
 
     user_doc = {
-        "user_id": uuid4(),
+        "user_id": Binary.from_uuid(uuid4()),
         "full_name": request.full_name,
         "phone_number": request.phone_number,
         "email": request.email,
