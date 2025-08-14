@@ -1,25 +1,39 @@
-import logo from './logo.svg';
+// src/App.js
+import React, { useEffect, useState } from 'react';
 import './App.css';
+import LoginScreen from './ui/Login/LoginScreen';
+import Dashboard from './ui/Dashboard/Dashboard';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const [authed, setAuthed] = useState(() => localStorage.getItem('authed') === '1');
+
+  // Allow LoginScreen to signal success via a window event if it doesn't use props
+  useEffect(() => {
+    const onLoginSuccess = () => {
+      setAuthed(true);
+      localStorage.setItem('authed', '1');
+    };
+    window.addEventListener('login-success', onLoginSuccess);
+    return () => window.removeEventListener('login-success', onLoginSuccess);
+  }, []);
+
+  const handleLogin = () => {
+    setAuthed(true);
+    localStorage.setItem('authed', '1');
+  };
+
+  const handleLogout = () => {
+    setAuthed(false);
+    localStorage.removeItem('authed');
+  };
+
+  // If not authenticated, show Login; otherwise, show Dashboard
+  if (!authed) {
+    return <LoginScreen onLogin={handleLogin} />;
+  }
+
+  // Dashboard already has its own logout button/flow, but we still expose a prop if you want to use it later
+  return <Dashboard onLogout={handleLogout} />;
 }
 
 export default App;

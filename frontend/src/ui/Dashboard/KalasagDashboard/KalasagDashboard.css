@@ -1,0 +1,104 @@
+/* Layout */
+.k-container {
+  background: #f7f7f7;
+  min-height: 100vh;
+  padding: 32px 16px;
+  display: flex;
+  justify-content: center;
+}
+.k-inner {
+  width: 100%;
+  max-width: 840px; /* matches Dashboard */
+}
+
+/* Reusable card style */
+.card {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+}
+
+/* Header */
+.k-header {
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.k-header h1 {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+.k-settings {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid #ececec;
+  background: #fff;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+/* Balance */
+.k-balance {
+  text-align: center;
+  padding: 24px;
+  margin-bottom: 18px;
+}
+.k-balance-label {
+  color: #6b7280;
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+}
+.k-balance-amount {
+  font-size: 2.4rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: #E03030; /* BPI red accent */
+}
+
+/* Grid of tiles */
+.k-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 2x3 feel on desktop */
+  gap: 16px;
+}
+.k-tile {
+  padding: 18px;
+  aspect-ratio: 1 / 1;        /* big square tiles */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #f0f0f0;
+  transition: transform 120ms ease, box-shadow 120ms ease, border-color 120ms ease;
+}
+.k-tile:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  border-color: #E03030;
+}
+.k-tile:active {
+  transform: translateY(0);
+}
+.k-tile-icon {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+.k-tile-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .k-grid { grid-template-columns: repeat(2, 1fr); } /* 2 columns on tablets */
+}
+@media (max-width: 560px) {
+  .k-grid { grid-template-columns: 1fr; } /* 1 column on phones */
+  .k-balance-amount { font-size: 2rem; }
+}
