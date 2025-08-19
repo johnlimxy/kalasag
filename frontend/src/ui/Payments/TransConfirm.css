@@ -1,0 +1,127 @@
+/* Page layout (theme-consistent) */
+.tc-page {
+  background: #f7f7f7;
+  min-height: 100vh;
+  padding: 32px 16px;
+  display: flex;
+  justify-content: center;
+}
+.tc-wrap {
+  width: 100%;
+  max-width: 840px;
+}
+
+/* Reusable card style */
+.card {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+}
+
+/* Header */
+.tc-header {
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  position: relative;
+}
+.tc-header h1 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+.tc-close {
+  position: absolute;
+  right: 12px;
+  top: 10px;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid #ececec;
+  background: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+/* Summary card */
+.tc-card {
+  padding: 20px;
+}
+.tc-row {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+.tc-row:last-child {
+  border-bottom: none;
+}
+.tc-row.amount {
+  margin-top: 4px;
+}
+.tc-label {
+  color: #6b7280;
+  font-weight: 600;
+}
+.tc-value {
+  color: #111827;
+  font-weight: 600;
+  word-break: break-word;
+}
+.tc-amount {
+  color: #111827;
+  font-size: 1.6rem;
+  font-weight: 800;
+}
+
+/* Note text */
+.tc-note {
+  margin-top: 14px;
+  color: #6b7280;
+  font-size: 0.92rem;
+}
+
+/* Actions */
+.tc-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 18px;
+}
+.btn-secondary {
+  background: #f0f0f0;
+  color: #333;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.btn-secondary:hover {
+  background: #e6e6e6;
+}
+
+/* Primary green for confirm */
+.btn-success {
+  background: #16a34a;             /* green */
+  color: #fff;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 10px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(22,163,74,0.25);
+}
+.btn-success:hover {
+  filter: brightness(0.98);
+}
+
+@media (max-width: 560px) {
+  .tc-row { grid-template-columns: 96px 1fr; }
+  .tc-amount { font-size: 1.4rem; }
+}
