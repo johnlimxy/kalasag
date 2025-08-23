@@ -48,12 +48,11 @@
 
 /* FORM CARD */
 .sm-card {
-  /* Ensure nothing inside visually bleeds outside rounded card */
   border-radius: 14px;
   overflow: hidden;
 }
 .sm-form {
-  padding: 20px;              /* unified inner padding */
+  padding: 20px;
   box-sizing: border-box;
 }
 
@@ -64,29 +63,30 @@
   color: #374151;
 }
 
+/* INPUTS with consistent spacing */
 .sm-input {
   width: 100%;
-  padding: 14px 14px;
+  padding: 14px;
   font-size: 1rem;
-  border-radius: 12px;        /* smaller than card’s radius */
+  border-radius: 12px;
   border: 1px solid #e5e7eb;
   outline: none;
   transition: border-color 120ms ease, box-shadow 120ms ease, background-color 120ms ease;
   background: #fff;
-  margin: 0;                  /* prevent default margins from pushing out */
-  box-sizing: border-box;     /* keep width within card */
+  box-sizing: border-box;
+  margin-bottom: 18px;   /* 🔥 consistent spacing */
 }
 .sm-input:focus {
   border-color: #E03030;
   box-shadow: 0 0 0 3px rgba(224, 48, 48, 0.12);
 }
 
-.sm-row { margin-top: 14px; }
-
+/* Amount group */
 .sm-amount-group {
   display: flex;
   align-items: center;
   gap: 8px;
+  margin-bottom: 18px;   /* 🔥 same spacing as input */
 }
 .peso {
   font-weight: 800;
@@ -97,12 +97,14 @@
 
 /* HINTS + ERRORS */
 .sm-hint {
-  margin-top: 6px;
+  margin-top: -12px;
+  margin-bottom: 14px;   /* consistent gap */
   color: #6b7280;
   font-size: 0.85rem;
 }
 .sm-error {
-  margin-top: 6px;
+  margin-top: -12px;
+  margin-bottom: 14px;
   color: #B02020;
   font-size: 0.875rem;
   font-weight: 500;
@@ -154,6 +156,8 @@
   filter: none;
 }
 
+/* MOBILE */
 @media (max-width: 560px) {
   .sm-header h1 { font-size: 1.1rem; }
+  .sm-input, .sm-amount-group { margin-bottom: 14px; } /* tighter spacing on small screens */
 }

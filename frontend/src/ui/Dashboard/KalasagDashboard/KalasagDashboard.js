@@ -55,6 +55,9 @@ import './KalasagDashboard.css';
 import QrScreen from '../../Payments/QrScreen';
 import SendMoneyScreen from '../../Payments/SendMoneyScreen';
 
+// ✅ NEW: import the Guardian screen
+import GuardianDashboard from '../../GuardianDashboard/GuardianDashboard';
+
 const tiles = [
   { key: 'check-balance', icon: '👁️', label: 'Check Balance' },
   { key: 'qr',            icon: '🔳', label: 'Pay with QR' },
@@ -70,13 +73,19 @@ const KalasagDashboard = ({
   onSettings = () => alert('Open Settings'),
 }) => {
   // local “router”
-  const [screen, setScreen] = useState('home'); // 'home' | 'qr' | 'send'
+  const [screen, setScreen] = useState('home'); // 'home' | 'qr' | 'send' | 'guardians'
+
+  // ✅ NEW: demo guardian data (replace with real data when ready)
+  const [guardian] = useState({ name: 'Maria Santos', status: 'Active' });
 
   const handleTile = (key) => {
     if (key === 'qr') {
       setScreen('qr');
     } else if (key === 'send') {
       setScreen('send');
+    } else if (key === 'guardians') {
+      // ✅ NEW: open Guardian Management
+      setScreen('guardians');
     } else {
       onNavigate(key);
     }
@@ -96,12 +105,18 @@ const KalasagDashboard = ({
   if (screen === 'send') {
     return (
       <SendMoneyScreen
-        onCancel={() => setScreen('home')}
-        onNext={(payload) => {
-          // You can pass payload up if you like: onNavigate('confirm', payload)
-          console.log('Send Money payload:', payload);
-          onNavigate('confirm'); // Screen 4.2 later
-        }}
+        onCancel={() => setScreen('home')}   // go back after modal closes or X
+      />
+    );
+  }
+
+  // ✅ NEW: Screen 5.0 – Guardian Management
+  if (screen === 'guardians') {
+    return (
+      <GuardianDashboard
+        initialGuardian={guardian}                 // pass existing guardian or null
+        onBack={() => setScreen('home')}           // back to Kalasag home
+        onInvite={() => onNavigate('invite-guardian')} // -> Screen 5.1 later
       />
     );
   }
