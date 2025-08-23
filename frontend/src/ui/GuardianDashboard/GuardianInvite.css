@@ -1,0 +1,134 @@
+/* Page layout (same theme) */
+.gi-page {
+  background: #f7f7f7;
+  min-height: 100vh;
+  padding: 32px 16px;
+  display: flex;
+  justify-content: center;
+}
+.gi-wrap {
+  width: 100%;
+  max-width: 840px;
+}
+
+/* Reusable card */
+.card {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+}
+
+/* Header */
+.gi-header {
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.gi-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.gi-header h1 {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+.gi-back {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid #ececec;
+  background: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+/* Form Card */
+.gi-card {
+  padding: 20px;
+}
+.gi-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.gi-label {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #1f2937;
+}
+.gi-input {
+  width: 100%;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 14px 12px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+.gi-input:focus {
+  border-color: #E03030;
+  box-shadow: 0 0 0 3px rgba(224,48,48,0.08);
+}
+.gi-input.has-error {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239,68,68,0.08);
+}
+
+.gi-hint {
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+.gi-error {
+  color: #b91c1c;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* Actions */
+.gi-actions {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+/* Buttons (reuse theme) */
+.btn-primary {
+  background: #E03030;
+  color: #fff;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(224,48,48,0.25);
+}
+.btn-primary:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
+.btn-primary:hover:not(:disabled) {
+  filter: brightness(0.98);
+}
+
+.btn-secondary {
+  background: #fff;
+  color: #E03030;
+  border: 1px solid #E03030;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 560px) {
+  .gi-card { padding: 16px; }
+  .gi-header h1 { font-size: 1.15rem; }
+  .gi-actions { flex-direction: column-reverse; align-items: stretch; }
+}

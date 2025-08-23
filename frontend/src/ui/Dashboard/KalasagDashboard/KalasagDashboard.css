@@ -8,7 +8,7 @@
 }
 .k-inner {
   width: 100%;
-  max-width: 840px; /* matches Dashboard */
+  max-width: 840px;
 }
 
 /* Reusable card style */
@@ -57,18 +57,20 @@
   font-size: 2.4rem;
   font-weight: 800;
   letter-spacing: 0.5px;
-  color: #E03030; /* BPI red accent */
+  color: #E03030;
 }
 
-/* Grid of tiles */
+/* Grid of tiles (desktop default) */
 .k-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 2x3 feel on desktop */
+  /* Use minmax so tiles don't get too wide or too narrow */
+  grid-template-columns: repeat(3, minmax(200px, 1fr));
   gap: 16px;
 }
 .k-tile {
   padding: 18px;
-  aspect-ratio: 1 / 1;        /* big square tiles */
+  /* square on desktop for big, breathable tiles */
+  aspect-ratio: 1 / 1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -81,24 +83,58 @@
   box-shadow: 0 6px 18px rgba(0,0,0,0.08);
   border-color: #E03030;
 }
-.k-tile:active {
-  transform: translateY(0);
-}
-.k-tile-icon {
-  font-size: 2rem;
-  margin-bottom: 10px;
-}
-.k-tile-label {
-  font-size: 1rem;
-  font-weight: 600;
-  color: #1f2937;
+.k-tile:active { transform: translateY(0); }
+.k-tile-icon { font-size: 2rem; margin-bottom: 10px; }
+.k-tile-label { font-size: 1rem; font-weight: 600; color: #1f2937; }
+
+/* Tablet */
+@media (max-width: 900px) {
+  .k-grid {
+    grid-template-columns: repeat(2, minmax(180px, 1fr));
+    gap: 14px;
+  }
+  .k-balance-amount { font-size: 2.2rem; }
 }
 
-/* Responsive */
-@media (max-width: 900px) {
-  .k-grid { grid-template-columns: repeat(2, 1fr); } /* 2 columns on tablets */
-}
+/* Phones (compact) */
 @media (max-width: 560px) {
-  .k-grid { grid-template-columns: 1fr; } /* 1 column on phones */
-  .k-balance-amount { font-size: 2rem; }
+  .k-container { padding: 20px 12px; }
+
+  .k-header {
+    margin-bottom: 12px;
+  }
+  .k-header h1 { font-size: 1.15rem; }
+  .k-settings { width: 36px; height: 36px; }
+
+  .k-balance {
+    padding: 16px;
+    margin-bottom: 14px;
+  }
+  .k-balance-label { font-size: 0.9rem; }
+  .k-balance-amount { font-size: 1.9rem; }
+
+  .k-grid {
+    /* 2 columns on phones so tiles aren’t full-width monsters */
+    grid-template-columns: repeat(2, minmax(140px, 1fr));
+    gap: 12px;
+  }
+  .k-tile {
+    padding: 12px;
+    /* switch from square to short cards so they feel lighter on mobile */
+    aspect-ratio: 4 / 3;          /* shorter */
+    border-radius: 12px;
+  }
+  .k-tile-icon { font-size: 1.55rem; margin-bottom: 8px; }
+  .k-tile-label { font-size: 0.92rem; }
+}
+
+/* Very small phones */
+@media (max-width: 380px) {
+  .k-grid {
+    grid-template-columns: repeat(2, minmax(120px, 1fr));
+    gap: 10px;
+  }
+  .k-tile { padding: 10px; aspect-ratio: 3.8 / 3; }
+  .k-tile-icon { font-size: 1.4rem; }
+  .k-tile-label { font-size: 0.88rem; }
 }

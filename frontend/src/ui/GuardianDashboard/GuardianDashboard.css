@@ -1,0 +1,169 @@
+/* Page layout (theme-consistent) */
+.gd-page {
+  background: #f7f7f7;
+  min-height: 100vh;
+  padding: 32px 16px;
+  display: flex;
+  justify-content: center;
+}
+.gd-wrap {
+  width: 100%;
+  max-width: 840px;
+}
+
+/* Reusable card (same as other screens) */
+.card {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+}
+
+/* Header */
+.gd-header {
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.gd-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.gd-header h1 {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+.gd-back {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid #ececec;
+  background: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+/* Status Card */
+.gd-card {
+  padding: 20px;
+}
+.gd-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.gd-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: #f3f4f6;
+  font-size: 1.5rem;
+}
+.gd-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.gd-name {
+  font-weight: 750;
+  color: #111827;
+  font-size: 1.05rem;
+}
+.gd-badge {
+  font-size: 0.8rem;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: #e5e7eb;
+  color: #374151;
+  font-weight: 700;
+}
+.gd-badge.active {
+  background: #d1fae5;
+  color: #065f46;
+  border: 1px solid #b7f0d9;
+}
+
+.gd-note {
+  margin-top: 10px;
+  color: #6b7280;
+  font-size: 0.92rem;
+}
+
+.gd-actions {
+  margin-top: 16px;
+  display: flex;
+  gap: 10px;
+}
+
+/* Empty state */
+.gd-empty {
+  padding: 16px 6px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  gap: 8px;
+}
+.gd-empty-icon {
+  font-size: 2rem;
+}
+.gd-empty-title {
+  font-weight: 800;
+  color: #111827;
+}
+.gd-empty-text {
+  color: #6b7280;
+  max-width: 520px;
+}
+
+/* Bottom CTA when guardian exists */
+.gd-cta {
+  margin-top: 16px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.gd-cta-text {
+  color: #374151;
+  font-weight: 600;
+}
+
+/* Buttons (reuse theme) */
+.btn-primary {
+  background: #E03030;
+  color: #fff;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(224,48,48,0.25);
+}
+.btn-primary:hover { filter: brightness(0.98); }
+
+.btn-danger-outline {
+  background: #fff;
+  color: #B02020;
+  border: 1px solid #f1b1b1;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-weight: 750;
+  cursor: pointer;
+}
+.btn-danger-outline:hover {
+  background: #fff7f7;
+}
+
+/* Responsive tweaks */
+@media (max-width: 560px) {
+  .gd-header h1 { font-size: 1.15rem; }
+  .gd-card { padding: 16px; }
+  .gd-cta { flex-direction: column; gap: 10px; align-items: stretch; }
+}

@@ -1,5 +1,8 @@
+// src/ui/Payments/SendMoneyScreen.js
 import React, { useState } from 'react';
 import './SendMoneyScreen.css';
+import HighRiskModal from '../AiAssistModal/HighRiskModal';
+import LowRiskModal from '../AiAssistModal/LowRiskModal';
 
 const pesoFmt = (v) =>
   Number(v || 0).toLocaleString('en-PH', {
@@ -10,28 +13,66 @@ const pesoFmt = (v) =>
 const QUICK_AMOUNTS = [100, 500, 1000, 5000];
 
 const SendMoneyScreen = ({ onNext, onCancel }) => {
+  const [accName, setAccName] = useState('');
+  const [accNumber, setAccNumber] = useState('');
   const [mobile, setMobile] = useState('');
   const [amount, setAmount] = useState('');
-  const [errors, setErrors] = useState({ mobile: '', amount: '' });
+  const [errors, setErrors] = useState({
+    accName: '',
+    accNumber: '',
+    mobile: '',
+    amount: '',
+  });
+
+  // null | 'high' | 'low'
+  const [risk, setRisk] = useState(null);
 
   const validate = () => {
-    const e = { mobile: '', amount: '' };
+    const e = { accName: '', accNumber: '', mobile: '', amount: '' };
 
-    // Basic PH mobile validation: 09XXXXXXXXX
+    // Account name: basic sanity (at least 2 non-space chars)
+    if (!accName.trim() || accName.trim().length < 2) {
+      e.accName = 'Please enter a valid account name.';
+    }
+
+    // Account number: allow digits with dashes/spaces, validate 10–16 digits
+    const digitsOnly = accNumber.replace(/\D/g, '');
+    if (digitsOnly.length < 10 || digitsOnly.length > 16) {
+      e.accNumber =
+        'Enter a valid account number (10–16 digits; dashes/spaces allowed).';
+    }
+
+    // PH mobile: 09XXXXXXXXX
     const mobileOk = /^09\d{9}$/.test(mobile.trim());
     if (!mobileOk) e.mobile = 'Enter a valid PH mobile number (e.g., 09XXXXXXXXX).';
 
+    // Amount > 0
     const n = Number(amount);
     if (!amount || isNaN(n) || n <= 0) e.amount = 'Enter a valid amount greater than ₱0.00.';
 
     setErrors(e);
-    return !e.mobile && !e.amount;
+    return !e.accName && !e.accNumber && !e.mobile && !e.amount;
   };
 
   const handleNext = (ev) => {
     ev.preventDefault();
     if (!validate()) return;
-    onNext?.({ mobile: mobile.trim(), amount: Number(amount) });
+
+    const n = Number(amount);
+    // Decide which modal to show
+    if (n >= 5000) {
+      setRisk('high');
+    } else {
+      setRisk('low');
+    }
+
+    // Bubble up payload if parent wants it (logging, etc.)
+    onNext?.({
+      accName: accName.trim(),
+      accNumber: accNumber.replace(/\D/g, ''),
+      mobile: mobile.trim(),
+      amount: n,
+    });
   };
 
   const handleAmountBlur = () => {
@@ -45,8 +86,16 @@ const SendMoneyScreen = ({ onNext, onCancel }) => {
   };
 
   const formValid = () => {
+    const digitsOnly = accNumber.replace(/\D/g, '');
     const n = Number(amount);
-    return /^09\d{9}$/.test(mobile.trim()) && !isNaN(n) && n > 0;
+    return (
+      accName.trim().length >= 2 &&
+      digitsOnly.length >= 10 &&
+      digitsOnly.length <= 16 &&
+      /^09\d{9}$/.test(mobile.trim()) &&
+      !isNaN(n) &&
+      n > 0
+    );
   };
 
   return (
@@ -65,6 +114,36 @@ const SendMoneyScreen = ({ onNext, onCancel }) => {
         {/* Form */}
         <section className="sm-card card">
           <form className="sm-form" onSubmit={handleNext} noValidate>
+            {/* Account Name */}
+            <label className="sm-label" htmlFor="sm-acc-name">
+              Account Name
+            </label>
+            <input
+              id="sm-acc-name"
+              className={`sm-input ${errors.accName ? 'has-error' : ''}`}
+              type="text"
+              placeholder="e.g., Juan Dela Cruz"
+              value={accName}
+              onChange={(e) => setAccName(e.target.value)}
+            />
+            {errors.accName && <div className="sm-error">{errors.accName}</div>}
+
+            {/* Account Number */}
+            <label className="sm-label" htmlFor="sm-acc-number">
+              Account Number
+            </label>
+            <input
+              id="sm-acc-number"
+              className={`sm-input ${errors.accNumber ? 'has-error' : ''}`}
+              type="text"
+              inputMode="numeric"
+              placeholder="Enter 10–16 digit account number"
+              value={accNumber}
+              onChange={(e) => setAccNumber(e.target.value)}
+            />
+            {errors.accNumber && <div className="sm-error">{errors.accNumber}</div>}
+
+            {/* Recipient Mobile */}
             <label className="sm-label" htmlFor="sm-mobile">
               Recipient’s Mobile Number
             </label>
@@ -77,9 +156,10 @@ const SendMoneyScreen = ({ onNext, onCancel }) => {
               value={mobile}
               onChange={(e) => setMobile(e.target.value)}
             />
-            <div className="sm-hint">We’ll send money to this number via InstaPay.</div>
+           
             {errors.mobile && <div className="sm-error">{errors.mobile}</div>}
 
+            {/* Amount */}
             <div className="sm-row">
               <label className="sm-label" htmlFor="sm-amount">
                 Amount (PHP)
@@ -115,7 +195,7 @@ const SendMoneyScreen = ({ onNext, onCancel }) => {
               ))}
             </div>
 
-            <div className="sm-hint">No fees for mock flow.</div>
+            
             {errors.amount && <div className="sm-error">{errors.amount}</div>}
 
             <button className="btn-primary sm-submit" type="submit" disabled={!formValid()}>
@@ -124,6 +204,25 @@ const SendMoneyScreen = ({ onNext, onCancel }) => {
           </form>
         </section>
       </div>
+
+      {/* Risk Modals */}
+      {risk === 'high' && (
+        <HighRiskModal
+          onCancel={() => {
+            setRisk(null);
+            onCancel?.(); // Back to Kalasag Dashboard (Screen 3.0)
+          }}
+        />
+      )}
+
+      {risk === 'low' && (
+        <LowRiskModal
+          onDone={() => {
+            setRisk(null);
+            onCancel?.(); // Back to Kalasag Dashboard (Screen 3.0)
+          }}
+        />
+      )}
     </div>
   );
 };
