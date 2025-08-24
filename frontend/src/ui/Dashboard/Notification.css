@@ -1,0 +1,105 @@
+/* Backdrop + subtle blur */
+.notif-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(17,17,17,0.35);
+  backdrop-filter: blur(2px);
+  display: grid;
+  place-items: center;
+  z-index: 1000;
+}
+
+/* Modal card (re-uses global .card look nicely) */
+.notif-modal {
+  width: min(560px, calc(100% - 32px));
+  border-radius: 14px;
+  padding: 16px 16px 20px;
+  background: #fff;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+
+.notif-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.notif-title {
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+.notif-badge {
+  display: inline-block;
+  background: #E03030;
+  color: #fff;
+  border-radius: 8px;
+  padding: 2px 8px;
+  margin-right: 8px;
+  font-size: 0.85rem;
+}
+
+.notif-close {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid #ececec;
+  background: #fff;
+  cursor: pointer;
+}
+
+.notif-icon {
+  font-size: 2rem;
+  text-align: center;
+  margin: 8px 0 6px;
+}
+
+.notif-body {
+  color: #374151;
+  line-height: 1.45;
+  margin: 6px 4px 12px;
+}
+
+.notif-lead {
+  margin: 0 0 6px;
+}
+
+.notif-cta {
+  margin-top: 8px;
+  font-weight: 600;
+}
+
+.notif-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+/* Primary button (matches app) */
+.btn-primary {
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: #E03030;
+  color: #fff;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(224,48,48,0.25);
+}
+.btn-primary:hover { filter: brightness(0.98); }
+
+/* Bell badge on the header for guardians */
+.notification-icon.has-alert {
+  position: relative;
+}
+.notification-icon.has-alert::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 10px;
+  height: 10px;
+  background: #E03030;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px #fff;
+}

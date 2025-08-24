@@ -2,21 +2,34 @@
 .hrm-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(255, 255, 200, 0.2); /* subtle tint */
-  backdrop-filter: blur(6px);           /* frosted blur */
+  background: rgba(255, 255, 200, 0.22); /* subtle tint */
+  backdrop-filter: blur(6px);           
+  -webkit-backdrop-filter: blur(6px);   
   display: grid;
   place-items: center;
   z-index: 9999;
+
+  /* extra padding for small screens (safe area included) */
+  padding:
+    max(12px, env(safe-area-inset-top))
+    max(20px, env(safe-area-inset-right))
+    max(12px, env(safe-area-inset-bottom))
+    max(20px, env(safe-area-inset-left));
 }
 
 .hrm-container {
-  width: min(560px, 92vw);
+  width: min(520px, 100%);
+  max-height: calc(100dvh - 24px);
+  overflow: auto;
   text-align: center;
-  padding: 24px 20px;
-  border-radius: 14px;
+
+  /* better spacing */
+  padding: clamp(14px, 3.5vw, 24px) clamp(16px, 4vw, 24px);
+  border-radius: clamp(12px, 3.2vw, 14px);
+
   background: #fffbe6; /* soft safety yellow */
   border: 1px solid #f3e7a1;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.22);
 }
 
 .hrm-icon {
@@ -40,6 +53,10 @@
 
 .hrm-btn-cancel {
   width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+  display: block;
+
   padding: 12px 16px;
   border: none;
   border-radius: 10px;
