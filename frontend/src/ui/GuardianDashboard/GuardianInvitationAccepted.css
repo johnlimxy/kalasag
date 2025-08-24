@@ -1,0 +1,31 @@
+.g2-page {
+  background: #f7f7f7;
+  min-height: 100vh;
+  padding: 32px 16px;
+  display: flex;
+  justify-content: center;
+}
+.g2-wrap { width: 100%; max-width: 720px; }
+
+.card {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 10px 28px rgba(0,0,0,.12);
+}
+
+.g2-card {
+  padding: 24px 18px;
+  text-align: center;
+}
+.g2-icon { font-size: 52px; margin-bottom: 10px; }
+.g2-title { margin: 0 0 8px; font-size: 1.5rem; font-weight: 800; }
+.g2-body { color: #374151; max-width: 58ch; margin: 0 auto 16px; }
+
+.btn-green {
+  background: #22c55e; color: #fff; border: 1px solid #22c55e;
+  border-radius: 10px; height: 46px; min-width: 160px;
+  font-weight: 700; cursor: pointer;
+  box-shadow: 0 2px 8px rgba(34,197,94,.25);
+}
+.btn-green:hover { filter: brightness(.97); }
+.g2-btn { padding: 0 18px; }

@@ -1,15 +1,30 @@
+// src/ui/GuardianDashboard/GuardianDashboard.js
 import React, { useState } from 'react';
 import './GuardianDashboard.css';
 import GuardianInvite from './GuardianInvite';
 
+// ===== Guardian Experience – Flow 6 (Guardian side) =====
+// 6.0: GuardianInviteNotice
+// 6.1: GuardianInvitation
+// 6.2: GuardianInvitationAccepted
+import GuardianInviteNotice from './GuardianInviteNotice';
+import GuardianInvitation from './GuardianInvitation';
+import GuardianInvitationAccepted from './GuardianInvitationAccepted';
+
 /**
  * Guardian Management (Screen 5.0)
- * Local router: mode = 'home' | 'invite'
+ * Local router:
+ *   - mode: 'home' | 'invite' (existing 5.x functionality)
+ *   - flow: null | 'notice' | 'invitation' | 'accepted'  (6.0 → 6.1 → 6.2)
+ *
+ * NOTE: Other, existing functionality remains unchanged.
  */
 const GuardianDashboard = ({
   initialGuardian = null,
-  onBack, // optional, to return to Kalasag Mode
+  onBack,                  // optional, return to previous screen (e.g., Kalasag Mode)
+  seniorName = 'Elena Reyes', // who invited the guardian (demo default)
 }) => {
+  // --------- Existing 5.x state ---------
   const [mode, setMode] = useState('home'); // 'home' | 'invite'
   const [guardian, setGuardian] = useState(initialGuardian);
 
@@ -26,6 +41,53 @@ const GuardianDashboard = ({
     setMode('home');
   };
 
+  // --------- NEW: Flow 6 local router & bell indicator ---------
+  const [flow, setFlow] = useState(null);           // 'notice' | 'invitation' | 'accepted'
+  const [hasInviteNotice, setHasInviteNotice] = useState(true); // red dot on bell
+
+  // ======================= FLOW 6 ROUTES =======================
+  // Screen 6.0 — Guardian Receives Invitation (in-app notice)
+  if (flow === 'notice') {
+    return (
+      <GuardianInviteNotice
+        seniorName={seniorName}
+        onReview={() => setFlow('invitation')} // -> Screen 6.1
+        onClose={() => setFlow(null)}          // back to dashboard
+      />
+    );
+  }
+
+  // Screen 6.1 — Guardian Invitation Screen (review Accept/Decline)
+  if (flow === 'invitation') {
+    return (
+      <GuardianInvitation
+        seniorName={seniorName}
+        onAccept={() => {
+          setFlow('accepted');       // -> Screen 6.2
+          setHasInviteNotice(false); // clear bell dot
+        }}
+        onDecline={() => {
+          // In real app, call decline API
+          setHasInviteNotice(false); // clear bell dot
+          setFlow(null);             // back to dashboard
+        }}
+        onBack={() => setFlow('notice')} // back to 6.0
+      />
+    );
+  }
+
+  // Screen 6.2 — Invitation Accepted Screen (instructions)
+  if (flow === 'accepted') {
+    return (
+      <GuardianInvitationAccepted
+        seniorName={seniorName}
+        onDone={() => setFlow(null)} // back to Guardian Dashboard
+      />
+    );
+  }
+  // ===================== END FLOW 6 ROUTES =====================
+
+  // --------- Existing 5.x routes ---------
   if (mode === 'invite') {
     return (
       <GuardianInvite
@@ -35,7 +97,7 @@ const GuardianDashboard = ({
     );
   }
 
-  // mode === 'home'
+  // --------- Screen 5.0 (home) ---------
   return (
     <div className="gd-page">
       <div className="gd-wrap">
@@ -54,7 +116,19 @@ const GuardianDashboard = ({
             )}
             <h1>Your Trusted Guardians</h1>
           </div>
-          <div className="gd-header-right" />
+
+          {/* NEW: Notification bell for Flow 6 (shows 6.0 when tapped) */}
+          <div className="gd-header-right">
+            <button
+              className="gd-bell"
+              aria-label="Notifications"
+              title="Notifications"
+              onClick={() => setFlow('notice')}
+            >
+              🔔
+              {hasInviteNotice && <span className="gd-badge-dot" />}
+            </button>
+          </div>
         </header>
 
         {/* Status card */}
@@ -87,7 +161,7 @@ const GuardianDashboard = ({
               <div className="gd-empty-title">You have not added a guardian yet.</div>
               <div className="gd-empty-text">
                 Invite someone you trust to help secure your account and assist with
-                high‑risk actions.
+                high-risk actions.
               </div>
               <button className="btn-primary" onClick={openInvite}>
                 Invite a New Guardian

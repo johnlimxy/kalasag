@@ -1,0 +1,93 @@
+.g0-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.38);
+  display: grid;
+  place-items: center;
+  z-index: 9999;
+  padding: 16px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 10px 28px rgba(0,0,0,.2);
+}
+
+.g0-card {
+  width: min(720px, 92vw);
+  padding: 16px;
+}
+
+.g0-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.g0-header h2 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+.g0-close {
+  border: 1px solid #ececec;
+  background: #fff;
+  width: 34px; height: 34px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.g0-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid #f0f0f0;
+  border-radius: 12px;
+  margin-top: 8px;
+}
+.g0-dot {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: #E03030;
+  margin-top: 6px;
+  flex: 0 0 auto;
+}
+.g0-body { flex: 1; }
+.g0-title {
+  font-weight: 650;
+  color: #111827;
+  margin-bottom: 8px;
+}
+
+.g0-action {
+  margin-top: 4px;
+  width: auto;
+  padding: 10px 14px;
+}
+
+.g0-sms {
+  margin-top: 14px;
+  padding: 12px;
+  background: #fafafa;
+  border: 1px dashed #e5e7eb;
+  border-radius: 12px;
+}
+.g0-sms-title {
+  font-size: .9rem;
+  color: #6b7280;
+  margin-bottom: 6px;
+}
+.g0-sms-text { margin: 0; color: #374151; }
+
+/* shared primary button look (matches app theme) */
+.btn-primary {
+  background: #E03030;
+  color: #fff;
+  border: 1px solid #E03030;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(224,48,48,.25);
+}
+.btn-primary:hover { filter: brightness(.96); }
