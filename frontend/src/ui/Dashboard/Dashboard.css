@@ -226,3 +226,20 @@
   .carousel-nav { display: none; }
   .accounts-list { grid-template-columns: 1fr; }
 }
+
+/* --- Guardian Bell Badge (force) --- */
+.notification-icon {
+  position: relative; /* ensure ::after is positioned correctly */
+}
+
+.notification-icon.has-alert::after {
+  content: "";
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 10px;
+  height: 10px;
+  background: #E03030;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px #fff; /* white ring to separate from background */
+}

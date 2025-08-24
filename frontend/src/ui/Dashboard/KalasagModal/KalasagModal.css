@@ -8,40 +8,73 @@
   align-items: center;
   z-index: 100;
 }
+
 .modal {
   background: #fff;
-  padding: 24px;
+  padding: 24px 20px;
   border-radius: 12px;
   text-align: center;
-  max-width: 320px;
-  width: 90%;
+  max-width: 360px;
+  width: 92%;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
 }
+
 .modal-icon {
   font-size: 2.5rem;
   margin-bottom: 16px;
 }
+
 .modal-actions {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   gap: 12px;
   margin-top: 24px;
+  flex-wrap: wrap;
 }
+
+/* Base style for all modal buttons */
+.modal-actions button {
+  flex: 1;
+  min-width: 140px;
+  height: 48px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: background 0.2s ease, filter 0.2s ease, color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Primary CTA */
 .btn-primary {
   background: #E03030;
   color: #fff;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 8px;
-  cursor: pointer;
+  border: 1px solid #E03030;
+  box-shadow: 0 2px 8px rgba(224,48,48,0.25);
 }
+.btn-primary:hover {
+  filter: brightness(0.95);
+}
+
+/* Secondary CTA (consistent height with border) */
 .btn-secondary {
-  background: #f0f0f0;
-  color: #333;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 8px;
-  cursor: pointer;
+  background: #fff;
+  color: #E03030;
+  border: 1px solid #E03030;
 }
 .btn-secondary:hover {
-  background: #e0e0e0;
+  background: #fff5f5;
+}
+
+/* Responsive fix: stack buttons vertically on small screens */
+@media (max-width: 400px) {
+  .modal-actions {
+    flex-direction: column;
+  }
+  .modal-actions button {
+    width: 100%;
+  }
 }
