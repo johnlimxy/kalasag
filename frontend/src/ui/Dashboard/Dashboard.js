@@ -190,6 +190,16 @@ const Dashboard = ({ profile }) => {
         {isGuardian && showNotif && (
           <NotificationModal
             onClose={() => setShowNotif(false)}
+            onAccept={() => {
+              // handle “Accept” (e.g., mark acknowledged)
+              setShowNotif(false);
+              setHasGuardianAlert(false);
+            }}
+            onDecline={() => {
+              // handle “Decline” (e.g., dismiss)
+              setShowNotif(false);
+              setHasGuardianAlert(false);
+            }}
             alert={{
               senior: profile?.seniorName || 'Elena Reyes',
               amount: '₱6,000.00',
