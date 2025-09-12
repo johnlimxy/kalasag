@@ -58,6 +58,10 @@ import SendMoneyScreen from '../../Payments/SendMoneyScreen';
 // ✅ NEW: import the Guardian screen
 import GuardianDashboard from '../../GuardianDashboard/GuardianDashboard';
 
+
+// ✅ NEW: import ChatBot component
+import ChatBot from '../../AiAssistModal/ChatBot'; // Assuming ChatBot.js is in src/ui
+
 const tiles = [
   { key: 'check-balance', icon: '👁️', label: 'Check Balance' },
   { key: 'qr',            icon: '🔳', label: 'Pay with QR' },
@@ -149,6 +153,8 @@ const KalasagDashboard = ({
           ))}
         </section>
       </div>
+      {/*floatin Chat bot */}
+      <ChatBot/>
     </div>
   );
 };
