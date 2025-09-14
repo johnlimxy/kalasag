@@ -63,8 +63,8 @@ const Notification = ({
           </div>
 
           <div className="notif-actions">
-            <button className="btn-decline" onClick={openDecline}>Decline</button>
-            <button className="btn-accept" onClick={openAccept}>Accept</button>
+            <button className="btn-decline" id="declineguardian" onClick={openDecline}>Decline</button>
+            <button className="btn-accept" id="acceptguardian" onClick={openAccept}>Accept</button>
           </div>
         </div>
       </div>
