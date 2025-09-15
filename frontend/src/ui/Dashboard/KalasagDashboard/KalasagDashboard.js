@@ -54,10 +54,10 @@ import React, { useState } from 'react';
 import './KalasagDashboard.css';
 import QrScreen from '../../Payments/QrScreen';
 import SendMoneyScreen from '../../Payments/SendMoneyScreen';
+import HighRiskModal from '../../AiAssistModal/HighRiskModal'; // Ensure the path is correct
 
 // ✅ NEW: import the Guardian screen
 import GuardianDashboard from '../../GuardianDashboard/GuardianDashboard';
-
 
 // ✅ NEW: import ChatBot component
 import ChatBot from '../../AiAssistModal/ChatBot'; // Assuming ChatBot.js is in src/ui
@@ -73,11 +73,12 @@ const tiles = [
 
 const KalasagDashboard = ({
   balance = '₱15,500.00',
-  onNavigate = (key) => alert(`Navigate: ${key}`),
+  onNavigate = (key) => alert(`Navigate: ${key}`),  // Use appropriate routing method
   onSettings = () => alert('Open Settings'),
 }) => {
   // local “router”
   const [screen, setScreen] = useState('home'); // 'home' | 'qr' | 'send' | 'guardians'
+  const [showModal, setShowModal] = useState(false); // Modal state for HighRiskModal
 
   // ✅ NEW: demo guardian data (replace with real data when ready)
   const [guardian] = useState({ name: 'Maria Santos', status: 'Active' });
@@ -125,6 +126,12 @@ const KalasagDashboard = ({
     );
   }
 
+  // Handle "Proceed" action from HighRiskModal
+  const handleProceed = () => {
+    setShowModal(false); // Close the HighRiskModal
+    onNavigate('home');  // Navigate to Kalasag Dashboard (make sure this triggers a route change)
+  };
+
   // Default Kalasag home
   return (
     <div className="k-container">
@@ -153,8 +160,17 @@ const KalasagDashboard = ({
           ))}
         </section>
       </div>
-      {/*floatin Chat bot */}
-      <ChatBot/>
+
+      {/* High Risk Modal */}
+      {showModal && (
+        <HighRiskModal
+          onCancel={() => setShowModal(false)}  // Close the modal
+          onProceed={handleProceed}  // Proceed to Kalasag Dashboard
+        />
+      )}
+
+      {/* Floating Chatbot */}
+      <ChatBot />
     </div>
   );
 };

@@ -6,8 +6,9 @@ import './HighRiskModal.css';
  *
  * Props:
  *  - onCancel: () => void   // Navigate back to Kalasag Dashboard
+ *  - onProceed: () => void  // Proceed with the transaction
  */
-const HighRiskModal = ({ onCancel = () => {} }) => {
+const HighRiskModal = ({ onCancel = () => {}, onProceed = () => {} }) => {
   // Close with ESC
   const onKey = useCallback((e) => {
     if (e.key === 'Escape') onCancel();
@@ -24,13 +25,18 @@ const HighRiskModal = ({ onCancel = () => {} }) => {
         <div className="hrm-icon" aria-hidden>⚠️</div>
         <h2 id="hrm-title" className="hrm-title">For Your Safety</h2>
         <p className="hrm-text">
-          This transaction seems unusual. We have paused it and alerted your Guardian.
-          Please talk to them before proceeding.
+          This is a suspicious activity flagged by our system. 
+          Your Guardian has already been alerted. Would you like to proceed with the transaction?
         </p>
 
-        <button className="hrm-btn-cancel" onClick={onCancel}>
-          Cancel Transaction
-        </button>
+        <div className="hrm-btn-group">
+          <button className="hrm-btn-cancel" onClick={onCancel}>
+            Cancel Transaction
+          </button>
+          <button className="hrm-btn-proceed" onClick={onCancel}>
+            Proceed with Transaction
+          </button>
+        </div>
       </div>
     </div>
   );
