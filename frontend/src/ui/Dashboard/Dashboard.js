@@ -17,7 +17,7 @@ import './Notification.css';                           // ensure badge CSS is lo
  */
 const Dashboard = ({ profile }) => {
   // Fallback to a sensible default if no profile was passed
-  const userName = profile?.name || 'Julia Anna Denise';
+  const userName = profile?.name || 'Ellena Reyes';
   const carouselItems =
     profile?.carouselItems || [
       { title: 'Money tracker', subtitle: "It's time to track & plan your cash flow today." },
@@ -201,7 +201,7 @@ const Dashboard = ({ profile }) => {
               setHasGuardianAlert(false);
             }}
             alert={{
-              senior: profile?.seniorName || 'Elena Reyes',
+              senior: profile?.seniorName || 'Ellena Reyes',
               amount: '₱6,000.00',
               reason: 'to a new recipient',
             }}
