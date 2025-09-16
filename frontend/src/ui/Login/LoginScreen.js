@@ -15,7 +15,7 @@ const LoginScreen = () => {
     // ---- Admin (regular user) ----
     if (username === 'admin' && password === 'admin') {
       setProfile({
-        name: 'Julia Anna Denise',
+        name: 'Ellena Reyes',
         role: 'user',
         carouselItems: [
           { title: 'Money tracker', subtitle: "It's time to track & plan your cash flow today." },
